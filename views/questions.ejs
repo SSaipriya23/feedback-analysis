@@ -1,0 +1,14 @@
+
+<table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Top Questions</th>
+            <th scope="col">Approved Answer</th>
+          </tr>
+        </thead>
+        <tbody>
+                <% for(var i=0; i<questions.length; i++) {%>
+                        <tr> <td>  <%= questions[i].question %> </td> <td>  <%= questions[i].approvedAnswer %> </td> </tr>
+                <% } %>
+        </tbody>
+</table>

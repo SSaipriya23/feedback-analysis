@@ -23,6 +23,12 @@ app.get('/', function(req, res) {
     }
 })
 
+app.post('/', function(req, res){
+    if (req.session.user && req.session.user.category === 'Admin') {
+        
+    }
+})
+
 app.get('/details', function(req, res){
     res.send("details");
 })

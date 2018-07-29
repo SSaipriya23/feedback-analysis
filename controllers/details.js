@@ -37,23 +37,25 @@ function getQuestions(conn, companyId){
  
 app.get('/details', function(req, res) {
     // render to views/index.ejs template file
-    
-    req.getConnection(function(error, conn) {
-        try {
-            const companyId =  parseInt(req.query.companyId);
-            const processPromise = getProcess(conn, companyId);
-            const questionsPromise = getQuestions(conn, companyId);
-            Promise.all([processPromise, questionsPromise]).then(function(results){
-                const [{name, process}, questions] = results;
-                console.log(JSON.stringify({ title: name, process: process, questions: questions}));
-                res.render('details', { title: name, process: process, questions: questions});
-            }).catch(function(error){
-                res.render('companies', {title: 'Companies', errorMessage: 'Error while fetching details'});
-            });
-        } catch {
-            res.render('companies', {title: 'Companies', errorMessage: 'Invalid company Id'});
-        }
-    });
+    if (req.session.user) { 
+        req.getConnection(function(error, conn) {
+            try {
+                const companyId =  parseInt(req.query.companyId);
+                const processPromise = getProcess(conn, companyId);
+                const questionsPromise = getQuestions(conn, companyId);
+                Promise.all([processPromise, questionsPromise]).then(function(results){
+                    const [{name, process}, questions] = results;
+                    res.render('details', { title: name, process: process, questions: questions, session: req.session.user});
+                }).catch(function(error){
+                    res.render('companies', {title: 'Companies', errorMessage: 'Error while fetching details'});
+                });
+            } catch {
+                res.render('companies', {title: 'Companies', errorMessage: 'Invalid company Id'});
+            }
+        });
+    } else {
+        res.render('login', {title: 'Login', errorMessage: 'Details page requires a login.'});
+    }
 
 })
  
