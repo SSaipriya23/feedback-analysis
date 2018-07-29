@@ -1,0 +1,26 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include layouts/header.ejs %>    
+ 
+<div class="container">
+        <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                        <% for(var i=0; i<companies.length; i++) {%>
+                                <tr> <td>  <a href="/company/details?companyId=<%= companies[i].id %>" > <%= companies[i].name %>  </a>  </td> </tr>
+                        <% } %>
+                </tbody>
+            </table>
+</div>
+
+
+
+<!--
+including footer content which is common for all pages
+-->
+<%- include layouts/footer.ejs %>

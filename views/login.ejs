@@ -1,0 +1,42 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include layouts/header.ejs %>
+
+<% if (locals.errorMessage) { %>
+  <div class="alert alert-danger" role="alert">
+    <strong>Error: </strong> <%= errorMessage %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% } %>
+
+
+
+<form class="form-signin" action="/login" method="POST">
+    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+    <div class="form-group">
+      <label for="category">Select a role</label>
+      <select class="form-control" id="category" name="category">
+        <option>Admin</option>
+        <option>Faculty</option>
+        <option>Senior</option>
+        <option>Junior</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="userid">ID</label>
+      <input type="text" class="form-control" id="userid"  name="userid" placeholder="15R11A0552">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="**********">
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+  </form>
+
+<!--
+including footer content which is common for all pages
+-->
+<%- include layouts/footer.ejs %>

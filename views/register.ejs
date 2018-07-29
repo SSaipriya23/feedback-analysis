@@ -1,0 +1,34 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include layouts/header.ejs %>
+
+<form class="form-signin" action="/register" method="POST">
+    <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+    <div class="form-group">
+      <label for="category">Select a role</label>
+      <select class="form-control" id="category" name="category">
+        <option>Faculty</option>
+        <option>Senior</option>
+        <option>Junior</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="userid">ID</label>
+      <input type="text" class="form-control" id="userid"  name="userid" placeholder="15R11A0552">
+    </div>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="John Doe">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="**********">
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+  </form>
+
+<!--
+including footer content which is common for all pages
+-->
+<%- include layouts/footer.ejs %>

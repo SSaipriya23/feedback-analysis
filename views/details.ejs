@@ -1,0 +1,39 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include layouts/header.ejs %>    
+ 
+<div class="container">
+    <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Process</th>
+                  </tr>
+                </thead>
+                <tbody>
+                        <% for(var i=0; i<process.length; i++) {%>
+                                <tr> <td>  <%= process[i] %> </td> </tr>
+                        <% } %>
+                </tbody>
+    </table>
+    <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Top Questions</th>
+                    <th scope="col">Approved Answer</th>
+                  </tr>
+                </thead>
+                <tbody>
+                        <% for(var i=0; i<questions.length; i++) {%>
+                                <tr> <td>  <%= questions[i].question %> </td> <td>  <%= questions[i].approvedAnswer %> </td> </tr>
+                        <% } %>
+                </tbody>
+    </table>
+</div>
+
+
+
+<!--
+including footer content which is common for all pages
+-->
+<%- include layouts/footer.ejs %>
