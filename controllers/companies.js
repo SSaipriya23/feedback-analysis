@@ -24,7 +24,7 @@ app.get('/', function(req, res) {
 })
 
 app.post('/', function(req, res){
-    if (req.session.user && req.session.user.category === 'Admin') {
+    if (req.session.user && (req.session.user.category === 'Admin' || req.session.user.category === 'Senior')) {
         
     }
 })
