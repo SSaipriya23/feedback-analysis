@@ -1,0 +1,17 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include layouts/header.ejs %>
+
+<%- include questionJumbotron.ejs %>
+
+<form action="/answer" method="POST">
+    <input type="hidden"  name="questionId" value="<%= req.query.questionId %>">
+    <div class="form-group">
+        <label for="answer">Answer</label>
+        <textarea class="form-control" id="answer" name="answer" rows="10"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Add an answer</button>
+</form>
+
+<%- include layouts/footer.ejs %>

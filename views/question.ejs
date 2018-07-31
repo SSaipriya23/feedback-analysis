@@ -3,11 +3,18 @@ including header content which is common for all pages
 -->
 <%- include layouts/header.ejs %>
 
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container" style="text-align: center">
-            <h3>  <%=question%> </h3>
-        </div>
-    </div>
+<%- include questionJumbotron.ejs %>
+
+    <table class="table table-borderless">
+        <tr>
+            <td class="text-center" style="width: 50%">
+                views: <%=views%> 
+            </td>
+            <td class="text-center" style="width: 50%">
+                <a href="/addAnswer?questionId=<%=req.query.questionId%>&companyId=<%=req.query.companyId%>">Add an answer</a>
+            </td>
+        </tr>
+    </table>
 
     <div>
         <h5>
@@ -23,20 +30,23 @@ including header content which is common for all pages
             <thead>
                 <tr>
                     <th scope="col">All Answers</th>
-                    <th scope="col">Actions</th>
+                <% if (true) { %>
+                    <th scope="col" class="text-right">Actions</th>
+                <% } %>
                 </tr>
             </thead>
             <tbody>
             <% for(var i=0; i<answers.length; i++) {%>
                 <tr>
                     <td>
-                            <%=answers[i]%>  
+                            <%=answers[i].answer%>  
                     </td>
-
-                    <td>
-                        <a href="#" class="btn btn-success" role="button">Approve this Answer</a>
-                        <a href="#" class="btn btn-link" role="button">Edit this Answer</a>
+                    <% if (true) { %>
+                    <td class="text-right">
+                        <a href="/editAnswer?answerId=<%=answers[i].id%>&companyId=<%=req.query.companyId%>" class="btn btn-link" role="button">Edit this Answer</a>
+                        <a href="/approveAnswer?answerId=<%=answers[i].id%>&questionId=<%=req.query.questionId%>&companyId=<%=req.query.companyId%>" class="btn btn-success" role="button">Approve this Answer</a>
                     </td>
+                    <% } %>
                 </tr>
             <% } %>
             </tbody>

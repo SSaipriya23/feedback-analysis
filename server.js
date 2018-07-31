@@ -45,6 +45,10 @@ const logout = require('./controllers/logout')
 const companies = require('./controllers/companies')
 const details = require('./controllers/details')
 const question = require('./controllers/question')
+const answer = require('./controllers/answer')
+const addAnswer = require('./controllers/addAnswer')
+const editAnswer = require('./controllers/editAnswer')
+const approveAnswer = require('./controllers/approveAnswer')
  
  
 /**
@@ -118,7 +122,6 @@ app.use(function(req, res, next) {
     const render = res.render;
     res.render = function(view, locals={}, cb) {
         const messages = req.flash();
-        console.log(locals);
         res.locals.message = messages;
         locals.session = req.session;
         locals.req = req;
@@ -139,6 +142,12 @@ app.use('/companies',companies)
 
 app.use('/company',details)
 app.use('/question',question)
+
+app.use('/answer',answer)
+
+app.use('/addAnswer',addAnswer)
+app.use('/editAnswer',editAnswer)
+app.use('/approveAnswer',approveAnswer)
 
 app.listen(3000, function(){
     console.log('Server running at port 3000: http://127.0.0.1:3000')

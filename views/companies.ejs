@@ -23,7 +23,7 @@ including header content which is common for all pages
                         </tbody>
                 </table>
         
-        <% if (session.category === 'Admin' || session.category ===  'Senior' ) { %>
+        <% if (session.user.category === 'Admin' || session.user.category ===  'Senior' ) { %>
                 <%- include addCompany.ejs %>
         <% } %>
         <!--
