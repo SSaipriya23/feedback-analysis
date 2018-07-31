@@ -1,5 +1,8 @@
 var express = require('express')
 var app = express()
+
+const RENDER_PAGE = 'companies';
+const PAGE_TITLE = 'Companies Page';
  
 app.get('/', function(req, res) {
     // render to views/index.ejs template file
@@ -14,7 +17,7 @@ app.get('/', function(req, res) {
                 } else {
                     console.log(results);
                     console.log(results.map(_ => _.name));
-                    res.render('companies', {title: 'Companies', companies : results.map(_ => { return { id: _.id, name: _.name }} ), session: req.session.user });
+                    res.render(RENDER_PAGE, {title: PAGE_TITLE, companies : results.map(_ => { return { id: _.id, name: _.name }} ), session: req.session.user });
                 };            
             });
         });
@@ -24,8 +27,24 @@ app.get('/', function(req, res) {
 })
 
 app.post('/', function(req, res){
+    // Accept POST calls only if we have a logged in user, and the user is either Admin or Senior.
     if (req.session.user && (req.session.user.category === 'Admin' || req.session.user.category === 'Senior')) {
-        
+        const companyName = req.body['company-name'];
+        const companyProcess = req.body['company-process'];
+        req.getConnection(function(error, conn) { 
+            const companyInsertQuery = `insert into companies(name, process) values ('${companyName}', '${companyProcess}');`
+            console.debug(companyInsertQuery);
+            conn.query(companyInsertQuery, function(err, results) {
+                if(err) {
+                    console.error(err);
+                    throw err;
+                } else {
+                    res.redirect('/companies');
+                };            
+            });
+        });
+    } else {
+        res.render(RENDER_PAGE, {title:PAGE_TITLE, session: req.session.user, errorMessage: 'Credentials are Invalid'})
     }
 })
 

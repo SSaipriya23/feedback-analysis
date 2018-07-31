@@ -2,8 +2,6 @@ var express = require('express')
 var app = express()
  
 app.get('/', function(req, res) {
-    // render to views/index.ejs template file
-    console.log(req.session.user);
     res.render('register', {title: 'My Node.js Application', session: req.session.user})
 })
  
