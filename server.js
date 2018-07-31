@@ -118,7 +118,7 @@ app.use(function(req, res, next) {
     const render = res.render;
     res.render = function(view, locals={}, cb) {
         const messages = req.flash();
-        console.log(req.session);
+        console.log(locals);
         res.locals.message = messages;
         locals.session = req.session;
         locals.req = req;
