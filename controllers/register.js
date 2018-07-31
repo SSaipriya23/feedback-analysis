@@ -2,7 +2,7 @@ var express = require('express')
 var app = express()
  
 app.get('/', function(req, res) {
-    res.render('register', {title: 'My Node.js Application', session: req.session.user})
+    res.render('register');
 })
  
 app.post('/', function(req, res){
@@ -14,6 +14,7 @@ app.post('/', function(req, res){
                 console.log(err);
                 throw err;
             } else {
+                req.flash("success", "Succesfully registered. Please login..")
                 res.redirect("/login");
             };            
         });

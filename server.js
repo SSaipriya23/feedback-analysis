@@ -44,6 +44,7 @@ const login = require('./controllers/login')
 const logout = require('./controllers/logout')
 const companies = require('./controllers/companies')
 const details = require('./controllers/details')
+const question = require('./controllers/question')
  
  
 /**
@@ -100,7 +101,7 @@ app.use(methodOverride(function (req, res) {
  * So, we also have to install and use 
  * cookie-parser & session modules
  */ 
-const flash = require('express-flash')
+const flash = require('connect-flash')
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
  
@@ -113,6 +114,21 @@ app.use(session({
 }))
 app.use(flash())
  
+app.use(function(req, res, next) {
+    const render = res.render;
+    res.render = function(view, locals={}, cb) {
+        const messages = req.flash();
+        console.log(req.session);
+        res.locals.message = messages;
+        locals.session = req.session;
+        locals.req = req;
+        if (!locals.title) {
+            locals.title = config["page-titles"][view];
+        }
+        render.call(res, view, locals, cb);
+    };
+    next();
+});
  
 app.use('/', index)
 app.use('/users', users)
@@ -122,7 +138,8 @@ app.use('/logout',logout)
 app.use('/companies',companies)
 
 app.use('/company',details)
- 
+app.use('/question',question)
+
 app.listen(3000, function(){
     console.log('Server running at port 3000: http://127.0.0.1:3000')
 })

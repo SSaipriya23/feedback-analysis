@@ -3,7 +3,7 @@ var app = express()
  
 app.get('/', function(req, res) {
     // render to views/index.ejs template file
-    res.render('login', {title: 'Login', session: req.session.user})
+    res.render('login');
 })
  
 app.post('/', function(req, res){
@@ -21,7 +21,8 @@ app.post('/', function(req, res){
                 req.session.user = {category, userid};
                 res.redirect("/companies");
             } else {
-                res.render('login', {title: 'Login', errorMessage: 'Credentials are invalid'});
+                req.flash("error", "Credentials are invalid")
+                res.render('login');
             };            
         });
     });

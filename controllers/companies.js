@@ -17,12 +17,13 @@ app.get('/', function(req, res) {
                 } else {
                     console.log(results);
                     console.log(results.map(_ => _.name));
-                    res.render(RENDER_PAGE, {title: PAGE_TITLE, companies : results.map(_ => { return { id: _.id, name: _.name }} ), session: req.session.user });
+                    res.render(RENDER_PAGE, {companies : results.map(_ => { return { id: _.id, name: _.name }} )});
                 };            
             });
         });
     } else {
-        res.render('login', {title: 'Login', errorMessage: 'Companies page requires a login.'});
+        req.flash("error", "Companies page requires a login");
+        res.redirect('/login');
     }
 })
 
@@ -44,7 +45,8 @@ app.post('/', function(req, res){
             });
         });
     } else {
-        res.render(RENDER_PAGE, {title:PAGE_TITLE, session: req.session.user, errorMessage: 'Credentials are Invalid'})
+        req.flash("error", "Credentials are Invalid");
+        res.render(RENDER_PAGE);
     }
 })
 

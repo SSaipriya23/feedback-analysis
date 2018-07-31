@@ -34,23 +34,47 @@
         <nav class="site-header sticky-top py-1">
             <div class="container d-flex flex-column flex-md-row justify-content-between">
               <a class="py-2" href="/">Home</a>
-              <a class="py-2 d-none d-md-inline-block" href="/register">Registration</a>
-              <% if (locals.session) { %>
+              <% if (locals.session.user) { %>
                 <a class="py-2 d-none d-md-inline-block" href="/companies">Companies</a>
                 <a class="py-2 d-none d-md-inline-block" href="/logout">Logout</a>
               <% } %>
-              <% if (locals.session === undefined ) { %>
+              <% if (locals.session.user === undefined ) { %>
+                <a class="py-2 d-none d-md-inline-block" href="/register">Registration</a>
                 <a class="py-2 d-none d-md-inline-block" href="/login">Login</a>
               <% } %>
             </div>
           </nav>
-          <% if (locals.errorMessage) { %>
-            <div class="alert alert-danger" role="alert">
-              <strong>Error: </strong> <%= errorMessage %>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+          <% if(locals.message){ %>
+            <% if(locals.message.info){ %>
+              <% for(var i=0; i<locals.message.info.length; i++) {%>
+              <div class="alert alert-info" role="alert">
+                  <strong>Info:</strong> <%=locals.message.info[i]%>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <% } %>  
+            <% } %>
+            <% if(locals.message.success){ %>
+              <% for(var i=0; i<locals.message.success.length; i++) {%>
+              <div class="alert alert-success" role="alert">
+                  <strong>Info:</strong> <%=locals.message.success[i]%>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <% } %>  
+            <% } %>
+            <% if(locals.message.error){ %>
+              <% for(var i=0; i<locals.message.error.length; i++) {%>
+              <div class="alert alert-danger" role="alert">
+                  <strong>Info:</strong> <%=locals.message.error[i]%>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <% } %>  
+            <% } %>
           <% } %>
           <div class="container">
                 

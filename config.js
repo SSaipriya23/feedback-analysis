@@ -9,6 +9,12 @@ var config = {
     server: {
         host: '127.0.0.1',
         port: '3000'
+    },
+    'page-titles': {
+        index: "Feedback Analysis",
+        register: "Feedback Analysis - Register",
+        login: "Feedback Analysis - Login",
+        companies : "Feedback Analysis - Companies List"
     }
 }
  
