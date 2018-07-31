@@ -7,6 +7,7 @@ including header content which is common for all pages
 
 <form action="/answer" method="POST">
     <input type="hidden"  name="questionId" value="<%= req.query.questionId %>">
+    <input type="hidden"  name="companyId" value="<%= req.query.companyId %>">
     <div class="form-group">
         <label for="answer">Answer</label>
         <textarea class="form-control" id="answer" name="answer" rows="10"></textarea>

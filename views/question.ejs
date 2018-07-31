@@ -30,7 +30,7 @@ including header content which is common for all pages
             <thead>
                 <tr>
                     <th scope="col">All Answers</th>
-                <% if (true) { %>
+                <% if (session.user.category === 'Admin' || session.user.category ===  'Senior' || session.user.category ===  'Faculty' ) { %>
                     <th scope="col" class="text-right">Actions</th>
                 <% } %>
                 </tr>
@@ -41,9 +41,9 @@ including header content which is common for all pages
                     <td>
                             <%=answers[i].answer%>  
                     </td>
-                    <% if (true) { %>
+                    <% if (session.user.category === 'Admin' || session.user.category ===  'Senior' || session.user.category ===  'Faculty' ) { %>
                     <td class="text-right">
-                        <a href="/editAnswer?answerId=<%=answers[i].id%>&companyId=<%=req.query.companyId%>" class="btn btn-link" role="button">Edit this Answer</a>
+                        <a href="/editAnswer?answerId=<%=answers[i].id%>&questionId=<%=req.query.questionId%>&companyId=<%=req.query.companyId%>" class="btn btn-link" role="button">Edit this Answer</a>
                         <a href="/approveAnswer?answerId=<%=answers[i].id%>&questionId=<%=req.query.questionId%>&companyId=<%=req.query.companyId%>" class="btn btn-success" role="button">Approve this Answer</a>
                     </td>
                     <% } %>

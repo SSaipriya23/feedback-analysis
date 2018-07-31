@@ -2,7 +2,7 @@ var express = require('express')
 var app = express()
  
 app.post('/', function(req, res) {
-    if (req.body.answer && req.body.questionId){
+    if (req.body.answer && req.body.questionId && req.body.companyId && (req.body.answerId === undefined)){
         const query = `Insert into answers(answer, questionId) values ('${req.body.answer}',${req.body.questionId})`;
         console.debug(query);
         req.getConnection(function(error, conn) {
@@ -12,11 +12,11 @@ app.post('/', function(req, res) {
                     throw err;
                 } else {
                     req.flash("success", "Succesfully submitted you answer.")
-                    res.redirect("/companies");
+                    res.redirect(`/question?questionId=${req.body.questionId}&companyId=${req.query.companyId}`);
                 };            
             });
         });
-    } else if (req.body.answer && req.body.answerId){
+    } else if (req.body.answer && req.body.answerId  && req.body.companyId  && (req.body.answerId !== undefined)){
         const query = `update answers set answer = '${req.body.answer}' where id = ${req.body.answerId}`;
         console.debug(query);
         req.getConnection(function(error, conn) {
@@ -26,7 +26,7 @@ app.post('/', function(req, res) {
                     throw err;
                 } else {
                     req.flash("success", "Succesfully submitted you answer.")
-                    res.redirect("/companies");
+                    res.redirect(`/question?questionId=${req.body.questionId}&companyId=${req.query.companyId}`);
                 };            
             });
         });
