@@ -1,15 +1,12 @@
 </br>
 
-<form class="form-group" action="/companies" method="POST">
+<form class="form-group" action="/question" method="POST">
     <h3>Add a New Question</h3>
     </br>
+    <input type="hidden" name="companyId" value=<%=req.query.companyId%>>
     <div class="form-group">
         <label for="company-name">Question</label>
         <input type="text" class="form-control" name="question" aria-describedby="Question" placeholder="Awesome question here.." required>
-    </div>
-    <div class="form-group">
-        <label for="process">Answer (Optional)</label>
-        <input type="text" class="form-control" name="answer" aria-describedby="Answer (Optional)" placeholder="Awesome Answer.">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

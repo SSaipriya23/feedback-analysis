@@ -67,6 +67,30 @@ app.get('/', function(req, res) {
         res.redirect('/login');
     }
 })
+
+app.post('/', function(req,res){
+    // Accept POST calls only if we have a logged in user, and the user is either Admin or Senior.
+    if (req.session.user && (req.session.user.category === 'Admin' || req.session.user.category === 'Senior') && req.body.companyId && req.body.question) {
+        const question = req.body['question'];
+        const companyId = req.body['companyId'];
+        req.getConnection(function(error, conn) { 
+            const questionInsertQuery = `insert into questions(question, approvedAnswer, companyid) values ('${question}','N/A', '${companyId}');`
+            console.debug(questionInsertQuery);
+            conn.query(questionInsertQuery, function(err, results) {
+                if(err) {
+                    console.error(err);
+                    throw err;
+                } else {
+                    res.redirect(`/company/details?companyId=${companyId}`);
+                };            
+            });
+        });
+    } else {
+        req.flash("error", "Credentials are Invalid");
+        res.render(RENDER_PAGE);
+    }
+});
+
 /** 
  * We assign app object to module.exports
  * 

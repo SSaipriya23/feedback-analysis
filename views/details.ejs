@@ -16,7 +16,7 @@ including header content which is common for all pages
                         <% } %>
                 </tbody>
     </table>
-    <% if (session.category === 'Admin' || session.category ===  'Senior' ) { %>
+    <% if (session.user.category === 'Admin' || session.user.category.user ===  'Senior' ) { %>
       <%- include addQuestion.ejs %>
     <% } %>
     <%- include questions.ejs %>
